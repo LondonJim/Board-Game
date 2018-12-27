@@ -14,7 +14,7 @@ describe("Game", () => {
 
   describe('#createBoard', () => {
     it('jumping numbers should be between -10 and 10', () => {
-      let isCreateBoardJumps = true
+      let isCreateBoardJumps
       gameBoard = game.board
       for(let row=0; row < gameBoard.length -1; row++) {
         for(let col=0; col < gameBoard[row].length - 1; col++) {
@@ -23,23 +23,12 @@ describe("Game", () => {
           }
         }
       }
-      expect(isCreateBoardJumps).toEqual(true)
+      expect(isCreateBoardJumps).not.toEqual(false)
     })
 
-    it('create a 10x10 game board', () => {
-      let isCreateBoard = true
+    it('create a 100 place game board', () => {
       gameBoard = game.board
-      if (gameBoard.length != 10) {
-        isCreateBoard = false
-      } else {
-        for (let row=0; row < 10; row++) {
-          if (gameBoard[row].length != 10) {
-            isCreateBoard = false
-          }
-        }
-      }
-
-      expect(isCreateBoard).toEqual(true)
+      expect(gameBoard.length).toEqual(100)
     })
   })
 
