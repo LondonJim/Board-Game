@@ -19,6 +19,7 @@ class Game {
         board.push(0)
       }
     }
+    board[99] = 0 // land on 99 to win
     return board
   }
 
@@ -36,14 +37,27 @@ class Game {
     this.players.forEach((player, index) => {
       let roll = this.roll()
       console.log(`Player ${index + 1} rolls a ${roll}`)
-      this.players[index][1] = this.players[index][1] + roll
+      this.players[index][1] = this.checkPosition(this.players[index][1] + roll)
       this.board[this.players[index][1]]
       console.log(`and lands on ${this.players[index][1]}`)
-      console.log(`which has a movement of ${this.board[this.players[index][1]]}`)
-      this.players[index][1] = this.players[index][1] + this.board[this.players[index][1]]
+      console.log(`which has an additional movement of ${this.board[this.players[index][1]]}`)
+      this.players[index][1] = this.checkPosition(this.players[index][1] + this.board[this.players[index][1]])
       console.log(`new position is: ${this.players[index][1]}`)
     })
-    // returns new postion of players
-    return this.players.map(playerPosition => playerPosition[1])
+
+    let playerPositions = this.players.map(playerPosition => playerPosition[1])
+    return playerPositions.includes(99) ?
+      `Player ${playerPositions.indexOf(99) + 1} wins!` : playerPositions
+  }
+
+  checkPosition(position) {
+    console.log(position)
+    if (position < 0) {
+      return 0
+    } else if (position > 99) {
+      return 99
+    } else {
+      return position
+    }
   }
 }

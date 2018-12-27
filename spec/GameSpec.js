@@ -50,21 +50,58 @@ describe("Game", () => {
                          0, 1, -1, 0, 4, 0, 2, -2, 0, -6,
                          0, 1, -1, 0, 4, 0, 2, -2, 0, -6,
                          0, 1, -1, 0, 4, 0, 2, -2, 0, -6,
-                         0, 1, -1, 0, 4, 0, 2, -2, 0, -6]
+                         0, 1, -1, 0, 4, 0, 2, -2, 0, 0]
       const mockCreatePlayer = () => {}
       game = new Game(mockCreatePlayer, mockBoard)
     })
 
-    it('automates the position of players based on roll', () => {
+    it('automates the position of players based on landing on a negative movement', () => {
       game.numberOfPlayers(1)
       spyOn(game,'roll').and.returnValue(2) // lands on a -1 on board
       expect(game.playTurn()).toEqual([1])
     })
 
-    it('automates the position of players based on roll', () => {
+    it('automates the position of players based on landing on a positive movement', () => {
       game.numberOfPlayers(1)
       spyOn(game,'roll').and.returnValue(4) // lands on a +4 on board
       expect(game.playTurn()).toEqual([8])
+    })
+
+    it('sets player position to 0 of movement takes position below 0', () => {
+      const mockBoard = [0, 1, -1, 0, -8, 0, 2, -2, 0, -6,
+                         0, 1, -1, 0, 4, 0, 2, -2, 0, -6,
+                         0, 1, -1, 0, 4, 0, 2, -2, 0, -6,
+                         0, 1, -1, 0, 4, 0, 2, -2, 0, -6,
+                         0, 1, -1, 0, 4, 0, 2, -2, 0, -6,
+                         0, 1, -1, 0, 4, 0, 2, -2, 0, -6,
+                         0, 1, -1, 0, 4, 0, 2, -2, 0, -6,
+                         0, 1, -1, 0, 4, 0, 2, -2, 0, -6,
+                         0, 1, -1, 0, 4, 0, 2, -2, 0, -6,
+                         0, 1, -1, 0, 4, 0, 2, -2, 0, 0]
+      const mockCreatePlayer = () => {}
+      game = new Game(mockCreatePlayer, mockBoard)
+      game.numberOfPlayers(1)
+      spyOn(game,'roll').and.returnValue(4) // lands on a -8 on board in 4th position
+      expect(game.playTurn()).toEqual([0])
+    })
+
+    it('returns player wins', () => {
+      const mockBoard = [0, 1, -1, 0, -8, 0, 2, -2, 0, -6,
+                         0, 1, -1, 0, 4, 0, 2, -2, 0, -6,
+                         0, 1, -1, 0, 4, 0, 2, -2, 0, -6,
+                         0, 1, -1, 0, 4, 0, 2, -2, 0, -6,
+                         0, 1, -1, 0, 4, 0, 2, -2, 0, -6,
+                         0, 1, -1, 0, 4, 0, 2, -2, 0, -6,
+                         0, 1, -1, 0, 4, 0, 2, -2, 0, -6,
+                         0, 1, -1, 0, 4, 0, 2, -2, 0, -6,
+                         0, 1, -1, 0, 4, 0, 2, -2, 0, -6,
+                         0, 1, -1, 0, 4, 0, 2, -2, 4, 0]
+      const mockCreatePlayer = () => {}
+      game = new Game(mockCreatePlayer, mockBoard)
+      game.numberOfPlayers(1)
+      game.players[0][1] = 95
+      spyOn(game,'roll').and.returnValue(5)
+      expect(game.playTurn()).toEqual('Player 1 wins!')
     })
   })
 
