@@ -1,9 +1,9 @@
 class Game {
 
-  constructor(createPlayer = () => {return new Player}) {
+  constructor(createPlayer = () => {return new Player}, board = this.createBoard()) {
     this.createPlayer = createPlayer
     this.players = []
-    this.board = this.createBoard()
+    this.board = board
   }
 
   roll() {
@@ -28,7 +28,22 @@ class Game {
 
   numberOfPlayers(num) {
     for (let i=0; i < num; i++) {
-       this.players[i] = this.createPlayer()
+       this.players[i] = [this.createPlayer(), 0]
     }
+  }
+
+  playTurn() {
+    this.players.forEach((player, index) => {
+      let roll = this.roll()
+      console.log(`Player ${index + 1} rolls a ${roll}`)
+      this.players[index][1] = this.players[index][1] + roll
+      this.board[this.players[index][1]]
+      console.log(`and lands on ${this.players[index][1]}`)
+      console.log(`which has a movement of ${this.board[this.players[index][1]]}`)
+      this.players[index][1] = this.players[index][1] + this.board[this.players[index][1]]
+      console.log(`new position is: ${this.players[index][1]}`)
+    })
+    // returns new postion of players
+    return this.players.map(playerPosition => playerPosition[1])
   }
 }

@@ -39,4 +39,33 @@ describe("Game", () => {
     })
   })
 
+  describe('#playTurn', () => {
+    beforeEach(() => {
+      const mockBoard = [0, 1, -1, 0, 4, 0, 2, -2, 0, -6,
+                         0, 1, -1, 0, 4, 0, 2, -2, 0, -6,
+                         0, 1, -1, 0, 4, 0, 2, -2, 0, -6,
+                         0, 1, -1, 0, 4, 0, 2, -2, 0, -6,
+                         0, 1, -1, 0, 4, 0, 2, -2, 0, -6,
+                         0, 1, -1, 0, 4, 0, 2, -2, 0, -6,
+                         0, 1, -1, 0, 4, 0, 2, -2, 0, -6,
+                         0, 1, -1, 0, 4, 0, 2, -2, 0, -6,
+                         0, 1, -1, 0, 4, 0, 2, -2, 0, -6,
+                         0, 1, -1, 0, 4, 0, 2, -2, 0, -6]
+      const mockCreatePlayer = () => {}
+      game = new Game(mockCreatePlayer, mockBoard)
+    })
+
+    it('automates the position of players based on roll', () => {
+      game.numberOfPlayers(1)
+      spyOn(game,'roll').and.returnValue(2) // lands on a -1 on board
+      expect(game.playTurn()).toEqual([1])
+    })
+
+    it('automates the position of players based on roll', () => {
+      game.numberOfPlayers(1)
+      spyOn(game,'roll').and.returnValue(4) // lands on a +4 on board
+      expect(game.playTurn()).toEqual([8])
+    })
+  })
+
 })
