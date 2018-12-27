@@ -1,7 +1,8 @@
 class Game {
 
-  constructor(player = new Player) {
-    this.player = player
+  constructor(createPlayer = () => {return new Player}) {
+    this.createPlayer = createPlayer
+    this.players = []
     this.board = this.createBoard()
   }
 
@@ -23,5 +24,11 @@ class Game {
 
   jumpPlace() {
     return (Math.floor(Math.random()*20) - 10)
+  }
+
+  numberOfPlayers(num) {
+    for (let i=0; i < num; i++) {
+       this.players[i] = this.createPlayer()
+    }
   }
 }

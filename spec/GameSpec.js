@@ -1,8 +1,8 @@
 describe("Game", () => {
 
   beforeEach(() => {
-    let mockPlayer = {}
-    game = new Game(mockPlayer)
+    const mockCreatePlayer = () => {}
+    game = new Game(mockCreatePlayer)
   })
 
   describe("#roll", () => {
@@ -29,6 +29,13 @@ describe("Game", () => {
     it('create a 100 place game board', () => {
       gameBoard = game.board
       expect(gameBoard.length).toEqual(100)
+    })
+  })
+
+  describe('#numberOfPlayers', () => {
+    it('creates player objects based on number entered', () => {
+      game.numberOfPlayers(2)
+      expect(game.players.length).toEqual(2)
     })
   })
 
