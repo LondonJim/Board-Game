@@ -10,6 +10,14 @@
   </head>
   <body>
     <h1>Board Game</h1>
+    <div class="players">
+      <form id="submit-players">
+        <label for="players">Number of players (2-5):</label>
+        <input type="number" id="players" name="players" min="2" max="5">
+        <input type="submit">
+      </form>
+    </div>
+    </br>
     <table>
       <tr>
           <td id="cell00" ></td>
@@ -131,6 +139,11 @@
           <td id="cell91" ></td>
           <td id="cell90" ></td>
       </tr>
-  </table>
+    </table>
+    <script>
+      window.addEventListener('load', function(){
+        controller = new Controller
+      });
+    </script>
   </body>
 </html>
